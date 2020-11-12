@@ -15,11 +15,11 @@
         {% endif %} 
         
         {% if post['image'] is not none %}
-        <img src="{{ post['image'] }}">
+        <img src="/{{ post['image'] }}">
         {% endif %}
         
         {% if post['file'] is not none %}
-        <a href="{{ post['image'] }}">Download file</a>
+        <a href="{{ post['file'] }}">Download file</a>
         {% endif %}
     </div>
 </body>
