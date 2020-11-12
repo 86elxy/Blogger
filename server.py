@@ -1,5 +1,5 @@
 import flask
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, send_from_directory
 import os
 import sqlite3
 from werkzeug.utils import secure_filename
@@ -50,7 +50,7 @@ def index():
 @app.route('/posts/<id>/')
 def get_post(id):
     db = get_db()
-    cursor = db.execute('SELECT * FROM post WHERE id=?', (id))
+    cursor = db.execute('SELECT * FROM post WHERE id=?', (int(id),)) #id must be cast in a tuple if not double digit wont work
     post = cursor.fetchone()
     db.close()
     if post == None:
@@ -65,16 +65,18 @@ def create():
     title = request.form['title']
     body = request.form['body']
 
+    UPLOAD_PATH = 'uploads/'
+    
     if 'image' in request.files:
         image_file = request.files['image']
-        image_filename = secure_filename(image_file.filename)
+        image_filename = UPLOAD_PATH + secure_filename(image_file.filename)
         image_file.save(image_filename)
     else:
         image_filename=None
 
     if 'file' in request.files:
         file_file = request.files['file']
-        file_filename = secure_filename(file_file.filename)
+        file_filename = UPLOAD_PATH + secure_filename(file_file.filename)
         file_file.save(file_filename)
     else:
         file_filename=None
@@ -85,12 +87,18 @@ def create():
     db.commit()
     db.close()
 
-    return 'done!'
+    return redirect(url_for('index'))
+
+@app.route('/uploads/<filename>')
+def send_upload(filename):
+    return send_from_directory('uploads',filename)
+
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
 app.run()
+
 
 
