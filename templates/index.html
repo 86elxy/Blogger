@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Posts</title>
+    <title>Post</title>
 </head>
 <body>
 	{%for post in posts%}
@@ -20,8 +20,10 @@
         {% endif %}
         
         {% if post['file'] is not none %}
-        <a href="{{ post['image'] }}">Download file</a>
+        <a href="{{ post['file'] }}">Download file</a>
         {% endif %}
+		
+		<a href='/posts/{{post["id"]}}'>Read more</a>
     </div>
 	{% endfor %}
 </body>
