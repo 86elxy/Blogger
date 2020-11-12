@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Post</title>
+</head>
+
+<body>
+<h1>Create Post</h1>
+<form action='{{url_for('create')}}' enctype='multipart/form-data' method='POST'>
+
+	<label for='title'>Title</label>
+	<input type='text' id='title' name='title'>
+	
+	<br><br>
+	
+	<label for='body'>Body</label>
+	<textarea id='body' name='body' rows = '10' cols='40'>
+	</textarea>
+	
+	<br><br>
+	
+	<label for='image'>Upload an image</label>
+	<input type='file'id='image' name='image'>
+	
+	<br><br>
+	
+	<label for='file'>Upload a file?</label>
+	<input type='file'id='file' name='file'>
+	
+	<br><br>
+	
+	<input type='submit'>
+</form>
+
+
+</body>
+
+
+</html>
